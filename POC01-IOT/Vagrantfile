@@ -164,7 +164,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             (1..4).each do |i_id|
               srv_name = ( "iot-" + i_id.to_s ).to_sym
                 config.vm.define srv_name do |srv|
-                    srv.vm.box = "qarham/ubuntu-1604-250G"
+                    srv.vm.box = "robwc/minitrusty64"
                     srv.vm.hostname = "iot-#{i_id}"
                     srv.vm.network 'private_network',
                       nic_type: '82540EM',

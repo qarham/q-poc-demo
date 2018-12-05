@@ -4,38 +4,18 @@ Using this repo you can create a whole Multi-Cloud POC setup using Vagrant. The 
 
 Note: Please check high level E2E topology diagram for 
 
+
+```bash
+vagrant box add robwc/minitrusty64
+vagrant box add qarham/ubuntu-1604-250G
+
+ ```
+
+
 ## High Level Vagrant Topology Diagram
 
 ![Multi Cloud](images/mcloud-1x1vQFX-Top-Overview.png)
 
-## Full Vagrant Topology Diagram
-
-![Multi Cloud](images/mcloud-1x1vQFX-Full-Top.png)
-
-Please note host server will be used for "contrail-multicloud-deployer" for multi-cloud provisioning and prerequisite is docker installing on the host.
-
-## Multi-Cloud E2E Topology Overview
-
-![Multi Cloud](images/mcloud-E2E-Top-overview.png)
-
-
-## Bringing Vagrant Setup up
-
-Assumption here is all software (Vagrant/VirtualBox & Ansible) needed for Vagrant setup is already installed and in case you have to setup vagrant host please follow main [README](../README.md) file.
-
-Please use following steps to bring Multi-Cloud Vagrant Topology up.
-
-```bash
-host> cd /root
-host> git clone https://github.com/qarham/cfm-vagrant.git
-host> cd cfm-vagrant/cfm-1x1-vqfx-8srv-mcloud
-host> vagrant status
-
-# Now let's bring the whole on-prem topology up using following command
-
-host> vagrant up
-
- ```
 
 ## Use-cases Tested on this setup
 
