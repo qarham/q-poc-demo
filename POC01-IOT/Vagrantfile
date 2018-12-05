@@ -101,11 +101,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                       nic_type: '82540EM',
                       virtualbox__intnet: "#{UUID}_vqfx1_seg#{s_id}"
                     srv.ssh.insert_key = true
-                    srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
-#                   srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
-                    srv.vm.provision "shell", path: "scripts/static-routes-s-server.sh"
+                   srv.vm.provision "shell", path: "scripts/enable_root_login_ubuntu.sh"
+#                    srv.vm.provision "shell", path: "scripts/static-routes-s-server.sh"
 #                    srv.vm.provision "shell", path: "scripts/ntp.sh"
-                    srv.vm.provision "shell", path: "scripts/dns-conf.sh"
+#                    srv.vm.provision "shell", path: "scripts/dns-conf.sh"
                 config.vm.provider :virtualbox do |vb|
                      vb.auto_nat_dns_proxy = false
 #                     vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
@@ -146,11 +145,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                       nic_type: '82540EM',
                       virtualbox__intnet: "#{UUID}_vr_iot#{l_id}"
                     srv.ssh.insert_key = true
-                    srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
-#                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
-                    srv.vm.provision "shell", path: "scripts/static-routes-l-server.sh"
-#                    srv.vm.provision "shell", path: "scripts/ntp.sh"
-                    srv.vm.provision "shell", path: "scripts/dns-conf.sh"
                 config.vm.provider :virtualbox do |vb|
                      vb.auto_nat_dns_proxy = false
 #                     vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
@@ -176,11 +170,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                       nic_type: '82540EM',
                       virtualbox__intnet: "#{UUID}_vr_iot#{i_id}"
                     srv.ssh.insert_key = true
-                    srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
+#                    srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
 #                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
-                    srv.vm.provision "shell", path: "scripts/static-routes-l-server.sh"
-#                    srv.vm.provision "shell", path: "scripts/ntp.sh"
-                    srv.vm.provision "shell", path: "scripts/dns-conf.sh"
                 config.vm.provider :virtualbox do |vb|
                      vb.auto_nat_dns_proxy = false
                     if i_id == 1 or i_id == 4
