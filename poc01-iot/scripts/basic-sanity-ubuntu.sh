@@ -41,10 +41,10 @@ openstack network create VN-02
 openstack subnet create --subnet-range 20.1.1.0/24 --network VN-02 VN02-VN-subnet
 
 openstack network create VN-03
-openstack subnet create --subnet-range 30.1.1.0/24 --network VN-02 VN02-VN-subnet
+openstack subnet create --subnet-range 30.1.1.0/24 --network VN-03 VN02-VN-subnet
 
 openstack network create VN-04
-openstack subnet create --subnet-range 40.1.1.0/24 --network VN-02 VN02-VN-subnet
+openstack subnet create --subnet-range 40.1.1.0/24 --network VN-04 VN02-VN-subnet
 
 openstack server create --flavor m1.tiny --image 'cirros2' \
     --nic net-id=VN-01 \
@@ -77,7 +77,7 @@ openstack server create --flavor m1.tiny --image 'cirros2' \
 srv2vmvn04-01
 
 
-sleep 30
+sleep 15
 
 echo "Check VM status"
 openstack server list

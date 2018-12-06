@@ -2,8 +2,8 @@ all:
   hosts:
     192.168.4.14: {}
     192.168.4.15: {}
-
-
+    192.168.4.16: {}
+    192.168.4.17: {}
 
   vars:
     PATH_STRONGSWAN_CONFIG: '/etc/contrail/vrouter/strongswan'
