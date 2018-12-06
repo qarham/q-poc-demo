@@ -39,12 +39,14 @@ instances:
     roles:
       vrouter:
          VROUTER_GATEWAY: 172.16.2.1
+#         VROUTER_AGENT__DEFAULT__gateway_mode: server
   l-srv4:
     provider: bms
     ip: 192.168.4.17
     roles:
       vrouter:
          VROUTER_GATEWAY: 172.16.2.1
+#         VROUTER_AGENT__DEFAULT__gateway_mode: server
   s-srv3:
     ip: 192.168.4.12
     provider: bms
@@ -64,9 +66,10 @@ contrail_configuration:
   AUTH_MODE: keystone
   KEYSTONE_AUTH_HOST: 192.168.4.11
   KEYSTONE_AUTH_URL_VERSION: /v3
-  ENCAP_PRIORITY: "MPLSoUDP,MPLSoGRE,VXLAN"
+  ENCAP_PRIORITY: "VXLAN,MPLSoUDP,MPLSoGRE"
   CONFIG_NODEMGR__DEFAULTS__minimum_diskGB: 100
   DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 100
+  VROUTER_AGENT__DEFAULT__gateway_mode: server
 kolla_config:
   customize:
     nova.conf: |
