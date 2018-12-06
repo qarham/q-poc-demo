@@ -5,7 +5,7 @@ provider_config:
   bms:
     ssh_pwd: c0ntrail123
     ssh_user: root
-    ntpserver: 10.102.44.37
+    ntpserver: 66.129.233.81
     domainsuffix: local
 instances:
   s-srv2:
@@ -46,7 +46,7 @@ instances:
       vrouter:
          VROUTER_GATEWAY: 172.16.2.1
   s-srv3:
-    ip: 10.87.65.73
+    ip: 192.168.4.12
     provider: bms
     roles:
       vrouter:

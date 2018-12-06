@@ -150,7 +150,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                       nic_type: '82540EM',
                       virtualbox__intnet: "#{UUID}_vr_iot#{l_id}",
                        auto_config: false
-                    srv.ssh.insert_key = true
+                    srv.vm.provision "shell", path: "scripts/enable_root_login_ubuntu.sh"
+                       srv.ssh.insert_key = true
                 config.vm.provider :virtualbox do |vb|
                      vb.auto_nat_dns_proxy = false
 #                     vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]

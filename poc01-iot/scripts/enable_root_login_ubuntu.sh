@@ -13,3 +13,6 @@ sudo service ssh restart
 echo "root:c0ntrail123" | sudo chpasswd
 
 sudo iptables -F
+
+# Pre-req for Contrail Ansible deployer for Ubuntu
+sudo apt-get -y install python-pip python-dev build-essential
