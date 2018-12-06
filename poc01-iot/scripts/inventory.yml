@@ -1,0 +1,15 @@
+all:
+  hosts:
+    192.168.4.14: {}
+    192.168.4.15: {}
+
+
+
+  vars:
+    PATH_STRONGSWAN_CONFIG: '/etc/contrail/vrouter/strongswan'
+    #secret must be encoded by base64
+    NODE2NODE_PSK: MTIzNDU2Nzg5MEFCQ0RFRkdISUpLTAo=
+    mark: 15
+    CONTAINER_REGISTRY: "sanjuabraham"
+    CONTRAIL_VERSION: latest
+    ansible_user: 'root'

@@ -1,5 +1,15 @@
+#!/bin/bash -eux
+
+#login as root
+
 sudo apt-get update
 sudo apt-get install \
+     python-minimal \
+     python-setuptools \
+     python-yaml \
+     python-paramiko \
+     python-jinja2 \
+     python-httplib2 \
      git \
      wget \
      python-pip \
@@ -12,6 +22,6 @@ sudo apt-get install \
 
 sudo wget https://launchpad.net/~ansible/+archive/ubuntu/ansible-2.4/+files/ansible_2.4.2.0-1ppa~zesty_all.deb
 
+sudo apt-get -f install
+
 sudo dpkg -i ansible_2.4.2.0-1ppa~zesty_all.deb
-
-

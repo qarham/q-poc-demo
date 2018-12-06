@@ -105,6 +105,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #                    srv.vm.provision "shell", path: "scripts/static-routes-s-server.sh"
 #                    srv.vm.provision "shell", path: "scripts/ntp.sh"
 #                    srv.vm.provision "shell", path: "scripts/dns-conf.sh"
+                   if s_id == 1
+                      srv.vm.provision "shell", path: "scripts/install_ubuntu_sw.sh"
+                   else
                 config.vm.provider :virtualbox do |vb|
                      vb.auto_nat_dns_proxy = false
 #                     vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
@@ -113,10 +116,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                          vb.customize ["modifyvm", :id, "--memory", "8192", "--cpus", "2"]
                     else
                         vb.customize ["modifyvm", :id, "--memory", "65536", "--cpus", "8"]
-        	    end                
-                end
+        	      end              
+               end
             end
         end
+    end
 
         ######################################################################################################################################
         ## Servers Connected to vQFX2 Leaf for Compute, CSN and BMS nodes "vqfx lo0: 2.2.2.2"                                          #######
@@ -142,8 +146,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                       nic_type: '82540EM',
                       virtualbox__intnet: "#{UUID}_vqfx2_seg#{l_id}"
                     srv.vm.network 'private_network',
+                      ip: "11.11.11.1",
                       nic_type: '82540EM',
-                      virtualbox__intnet: "#{UUID}_vr_iot#{l_id}"
+                      virtualbox__intnet: "#{UUID}_vr_iot#{l_id}",
+                       auto_config: false
                     srv.ssh.insert_key = true
                 config.vm.provider :virtualbox do |vb|
                      vb.auto_nat_dns_proxy = false
@@ -159,26 +165,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         end
 
         ######################################################################################################################################
-        ## IoT Devices Connected to IoT-GWs "Vrouter Compute" 
+        ## IoT Devices Connected to IoT-GWs "vRouter Gateway Computes" 
         ######################################################################################################################################
-            (1..4).each do |i_id|
-              srv_name = ( "iot-" + i_id.to_s ).to_sym
-                config.vm.define srv_name do |srv|
-                    srv.vm.box = "robwc/minitrusty64"
-                    srv.vm.hostname = "iot-#{i_id}"
-                    srv.vm.network 'private_network',
-                      nic_type: '82540EM',
-                      virtualbox__intnet: "#{UUID}_vr_iot#{i_id}"
-                    srv.ssh.insert_key = true
-#                    srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
-#                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
+        (1..4).each do |i_id|
+            srv_name = ( "iot-" + i_id.to_s ).to_sym
+             config.vm.define srv_name do |srv|
+                srv.vm.box = "robwc/minitrusty64"
+                srv.vm.hostname = "iot-#{i_id}"
+                srv.vm.network 'private_network',
+                  ip: "11.11.11.1",
+                  nic_type: '82540EM',
+                  virtualbox__intnet: "#{UUID}_vr_iot#{i_id}",
+                    auto_config: false
+                  srv.ssh.insert_key = true
                 config.vm.provider :virtualbox do |vb|
-                     vb.auto_nat_dns_proxy = false
-                    if i_id == 1 or i_id == 4
-                         vb.customize ["modifyvm", :id, "--memory", "4096", "--cpus", "2"]
-                    else
-                        vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
-                    end
+                     vb.customize ["modifyvm", :id, "--memory", "4096", "--cpus", "2"]
                 end
             end
         end
