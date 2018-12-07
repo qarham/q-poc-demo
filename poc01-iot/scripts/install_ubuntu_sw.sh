@@ -2,6 +2,7 @@
 
 #login as root
 #sudo apt-get -f install
+# for latest ansible version use "ppa:ansible/ansible" insted of "ppa:ansible/ansible-2.5"
 
 sudo apt-get update
 sudo apt-add-repository ppa:ansible/ansible-2.5

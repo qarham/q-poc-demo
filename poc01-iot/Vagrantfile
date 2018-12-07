@@ -87,7 +87,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             (1..4).each do |s_id|
               srv_name = ( "s-srv" + s_id.to_s ).to_sym
                 config.vm.define srv_name do |srv|
-                    srv.vm.box = "ubuntu-16045-350GB"
+                    srv.vm.box = "qarham/Ubuntu-16045-350GB"
                     srv.vm.hostname = "s-srv#{s_id}"
                     srv.vm.network 'private_network',
                        ip:"#{$subnet_s_mgmt}.#{s_id+9}",
@@ -132,7 +132,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             (1..4).each do |l_id|
               srv_name = ( "l-srv" + l_id.to_s ).to_sym
                 config.vm.define srv_name do |srv|
-                    srv.vm.box = "ubuntu-16045-350GB"
+                    srv.vm.box = "qarham/Ubuntu-16045-350GB"
                     srv.vm.hostname = "l-srv#{l_id}"
                     srv.vm.network 'private_network',
                        ip:"#{$subnet_s_mgmt}.#{l_id+13}",
