@@ -18,21 +18,22 @@ instances:
       analytics_database:
       analytics:
       webui:
-      openstack:
+      k8s_master:
+      kubemanager:
   l-srv1:
     provider: bms
     ip: 192.168.4.14
     roles:
       vrouter:
          VROUTER_GATEWAY: 172.16.2.1
-      openstack_compute:
+      k8s_node:
   l-srv2:
     provider: bms
     ip: 192.168.4.15
     roles:
       vrouter:
          VROUTER_GATEWAY: 172.16.2.1
-      openstack_compute:
+      k8s_node:
   l-srv3:
     provider: bms
     ip: 192.168.4.16
@@ -55,31 +56,16 @@ instances:
         TSN_EVPN_MODE: true
         VROUTER_GATEWAY: 172.16.1.1
 contrail_configuration:
+  KUBERNETES_PUBLIC_FIP_POOL: {'project': 'default', 'domain': 'default-domain', 'name': '__fip_pool_public__', 'network': '__public__'}
   CONTRAIL_VERSION: 5.0-360
-  CLOUD_ORCHESTRATOR: openstack
-  OPENSTACK_VERSION: queens
+  CLOUD_ORCHESTRATOR: kubernetes
+  UPGRADE_KERNEL: false
   CONTROLLER_NODES: 172.16.1.102
   CONTROL_NODES: 172.16.1.102
   TSN_NODES: 172.16.1.103
-  RABBITMQ_NODE_PORT: 5673
   PHYSICAL_INTERFACE: enp0s9
-  AUTH_MODE: keystone
-  KEYSTONE_AUTH_HOST: 192.168.4.11
-  KEYSTONE_AUTH_URL_VERSION: /v3
   ENCAP_PRIORITY: "VXLAN,MPLSoUDP,MPLSoGRE"
-  CONFIG_NODEMGR__DEFAULTS__minimum_diskGB: 100
-  DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 100
+#  CONFIG_NODEMGR__DEFAULTS__minimum_diskGB: 100
+#  DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 100
   VROUTER_AGENT__DEFAULT__gateway_mode: server
-kolla_config:
-  customize:
-    nova.conf: |
-      [libvirt]
-      virt_type=qemu
-      cpu_mode=none
-  kolla_globals:
-    enable_haproxy: no
-    enable_ironic: no
-    enable_swift: no
-  kolla_passwords:
-    keystone_admin_password: contrail123
-    metadata_secret: contrail123
+  KUBERNETES_CLUSTER_PROJECT: {}

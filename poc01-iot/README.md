@@ -56,7 +56,7 @@ wget http://10.84.5.120/cs-shared/images/vagrant-boxes/Ubuntu-16045-350GB.box
 # Add vagrant boxes using following command
 vagrant box add --name juniper/vqfx10k-re /var/tmp/vqfx-re-virtualbox.box
 vagrant box add --name juniper/vqfx10k-pfe /var/tmp/vqfx10k-pfe-virtualbox.box
-vagrant box add --name qarham/Ubuntu-16045-350GB /var/tmp/Ubuntu-16045-350GB
+vagrant box add --name qarham/Ubuntu-16045-350GB /var/tmp/Ubuntu-16045-350GB.box
 vagrant box add robwc/minitrusty64
 
 # Make sure all boxes are added
@@ -74,6 +74,34 @@ vagrant Status
 vagrant up
  ```
 
+Once the whole topology is up here is the output of "vagrant status" command showing all nodes should be running state.
+
+```bash
+[root@a0s1 poc01-iot]# vagrant status
+Current machine states:
+
+vqfx1-pfe                 running (virtualbox)
+vqfx1                     running (virtualbox)
+vqfx2-pfe                 running (virtualbox)
+vqfx2                     running (virtualbox)
+s-srv1                    running (virtualbox)
+s-srv2                    running (virtualbox)
+s-srv3                    running (virtualbox)
+s-srv4                    running (virtualbox)
+l-srv1                    running (virtualbox)
+l-srv2                    running (virtualbox)
+l-srv3                    running (virtualbox)
+l-srv4                    running (virtualbox)
+iot-1                     running (virtualbox)
+iot-2                     running (virtualbox)
+iot-3                     running (virtualbox)
+iot-4                     running (virtualbox)
+
+This environment represents multiple VMs. The VMs are all listed
+above with their current state. For more information about a specific
+VM, run `vagrant status NAME`.
+ ```
+
 Let's login to s-srv1 and setup Contrail Ansible Deployer and provision the whole cluster.
 
 ```bash
@@ -87,7 +115,7 @@ git clone -b R5.0 http://github.com/Juniper/contrail-ansible-deployer
 wget https://raw.githubusercontent.com/qarham/q-poc-demo/master/poc01-iot/scripts/instances.yaml
 wget https://raw.githubusercontent.com/qarham/q-poc-demo/master/poc01-iot/scripts/inventory.yml
 
-# Start Clsuter provisioning 
+# Start OpenStack Clsuter provisioning 
 cd contrail-ansible-deployer
 cp instances.yaml config/instances.yaml
 # Start instance Configuration
@@ -96,6 +124,13 @@ ansible-playbook -e orchestrator=openstack -i inventory/ playbooks/configure_ins
 ansible-playbook -i inventory/ playbooks/install_openstack.yml
 # Start Contrail 5.0.2 GA Installation
 ansible-playbook -e orchestrator=openstack -i inventory/ playbooks/install_contrail.yml
+
+# In case of K8s only clsuter use following steps
+# Start instance Configuration
+ansible-playbook -e orchestrator=kubernetes -i inventory/ playbooks/configure_instances.yml
+# Start Kubernetes Clsuter Installation
+ansible-playbook -e orchestrator=kubernetes -i inventory/ playbooks/install_k8s.yml
+ansible-playbook -e orchestrator=kubernetes -i inventory/ playbooks/install_contrail.yml
  ```
 
 After succesful installation setup FoxyProxy [FoxyProxy Setup Instructions](https://qarham.github.io/cfm-vagrant/docs/FoxyProxy-Chrome-Setup.html) 
@@ -109,7 +144,39 @@ https://192.168.4.11:8143     (Contrail UI)
 http://192.168.4.11           (OpenStack UI)
  ```
 
+## Create VM workload
 
+To make sure Cluster provisioning is successful and no issue let's create some workload using a simple basic sanity script "basic-sanity-ubuntu.sh".
+
+This script will perform following actions:
+* Install OpenStack client 
+* Download and Add cirros images 
+* Create VM flavors
+* Create Four VNs VN01: 10.1.1.0/24, VN02: 20.1.1.0/24, VN03: 30.1.1.0/24 & VN04: 40.1.1.0/24
+* Instantiate two VMs in each VN (VN01, VN02, VN03 & VN04)
+
+```bash
+wget https://raw.githubusercontent.com/qarham/q-poc-demo/master/poc01-iot/scripts/basic-sanity-ubuntu.sh
+
+chmod +x basic-sanity-ubuntu.sh
+
+./basic-sanity-ubuntu.sh
+ ```
+
+## Contrail vRouter Data Encryption Installation
+
+```bash
+cd /home/vagrant
+git clone -b R5.0 https://github.com/Juniper/contrail-datapath-encryption.git
+ssh-keygen
+ssh-copy-id root@192.168.4.14
+ssh-copy-id root@192.168.4.15
+ssh-copy-id root@192.168.4.16
+ssh-copy-id root@192.168.4.17
+
+# "inventory.yml" is already present in current PATH "/home/vagrant"
+ansible-playbook -i inventory.yml contrail-datapath-encryption/ansible/playbooks/deploy_and_run_all.yml
+ ```
 
 
 ## Use-cases Testing
