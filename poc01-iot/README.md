@@ -171,6 +171,8 @@ https://support.juniper.net/support/downloads/
 
 File Name: "contrail-datapath-encryption-deployer-5.0.2-0.360.tgz"
 
+Update "inventory.yml" with Contrail container registry, username/password & right tags.
+
 
 ```bash
 cd /home/vagrant
