@@ -165,6 +165,13 @@ chmod +x basic-sanity-ubuntu.sh
 
 ## Contrail vRouter Data Encryption Installation
 
+Note: Download Contrail datapath encryption package from Juniper Download page.
+
+https://support.juniper.net/support/downloads/
+
+File Name: "contrail-datapath-encryption-deployer-5.0.2-0.360.tgz"
+
+
 ```bash
 cd /home/vagrant
 git clone -b R5.0 https://github.com/Juniper/contrail-datapath-encryption.git
