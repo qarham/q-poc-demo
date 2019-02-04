@@ -1,0 +1,47 @@
+global_configuration:
+  CONTAINER_REGISTRY: hub.juniper.net/contrail
+  REGISTRY_PRIVATE_INSECURE: false
+  CONTAINER_REGISTRY_USERNAME: <user-name>
+  CONTAINER_REGISTRY_PASSWORD: <password>
+provider_config:
+  bms:
+    ssh_pwd:  u\_6KTqbPS+SW&KV
+    ssh_user: qarham
+    ntpserver: time.google.com
+    domainsuffix: local
+instances:
+  contrail-node1:
+    provider: bms
+    ip: X.Y.Z.11
+    roles:
+      config_database:
+      config:
+      control:
+      analytics_database:
+      analytics:
+      webui:
+      k8s_master:
+      k8s_node:
+      kubemanager:
+      vrouter:
+         VROUTER_GATEWAY: X.Y.Z.1
+  contrail-node2:
+    provider: bms
+    ip: X.Y.X.12
+    roles:
+      vrouter:
+         VROUTER_GATEWAY: X.Y.Z.1
+      k8s_node:
+contrail_configuration:
+  KUBERNETES_PUBLIC_FIP_POOL: {'project': 'default', 'domain': 'default-domain', 'name': '__fip_pool_public__', 'network': '__public__'}
+  CONTRAIL_VERSION: 5.0.2-0.360
+  CLOUD_ORCHESTRATOR: kubernetes
+  UPGRADE_KERNEL: false
+  CONTROLLER_NODES: X.Y.Z.11
+  CONTROL_NODES: X.Y.Z.11
+  PHYSICAL_INTERFACE: eth0
+  ENCAP_PRIORITY: "VXLAN,MPLSoUDP,MPLSoGRE"
+  CONFIG_NODEMGR__DEFAULTS__minimum_diskGB: 100
+  DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 100
+  VROUTER_AGENT__DEFAULT__gateway_mode: server
+  KUBERNETES_CLUSTER_PROJECT: {}
