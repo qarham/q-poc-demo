@@ -8,7 +8,7 @@
         - gateway
       provision: true
       username: root
-      password: u\_6KTqbPS+SW&KV
+      password: contrail123
       public_ip: 216.151.176.13
       private_ip: 192.168.0.1
       private_subnet:
@@ -21,7 +21,7 @@
         - compute_node
       provision: true
       username: root
-      password: u\_6KTqbPS+SW&KV
+      password: contrail123
       public_ip: 192.168.0.2
       private_ip: 192.168.0.2
       interface: eth0
@@ -30,7 +30,7 @@
         - compute_node
       provision: true
       username: root
-      password: u\_6KTqbPS+SW&KV
+      password: contrail123
       public_ip: 192.168.0.3
       private_ip: 192.168.0.3
       interface: eth0
