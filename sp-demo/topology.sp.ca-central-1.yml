@@ -2,13 +2,12 @@
   organization: juniper-contrail
   project: juniper-contrail
   instances:
-    - name: 
-      roles: contrail-mc-gw1
-        - vrouter: false
+    - name: contrail-mc-gw1
+      roles:
         - gateway
       provision: true
       username: root
-      password: contrail123
+      password: c0ntrail123
       public_ip: 216.151.176.13
       private_ip: 192.168.0.1
       private_subnet:
@@ -21,7 +20,7 @@
         - compute_node
       provision: true
       username: root
-      password: contrail123
+      password: cOntrail123
       public_ip: 192.168.0.2
       private_ip: 192.168.0.2
       interface: eth0
@@ -30,7 +29,7 @@
         - compute_node
       provision: true
       username: root
-      password: contrail123
+      password: cOntrail123
       public_ip: 192.168.0.3
       private_ip: 192.168.0.3
       interface: eth0
@@ -38,7 +37,7 @@
   organization: juniper-contrail
   project: contrail-multicloud
   regions:
-    - name: us-west-1
+    - name: ca-central-1
       vpc:
         - name: aws-contrail
           cidr_block: 192.168.100.0/24
@@ -68,7 +67,7 @@
                 - gateway
              provision: true
              username: centos
-             machine_id: ami-65e0e305
+             machine_id: ami-dcad28b8
              instance_type: c4.large
              volume_size: 24
              security_groups:
@@ -86,8 +85,8 @@
              roles:
                - controller
                - k8s_master
-             machine_id: ami-65e0e305
-             instance_type: c4.large
+             machine_id: ami-dcad28b8
+             instance_type: c4.4xlarge
              volume_size: 24
              security_groups:
                 - all_out_aws-contrail

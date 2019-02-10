@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-right 
+  labels:
+    app: ubuntuapp
+  annotations:
+    k8s.v1.cni.cncf.io/networks: '[
+      { "name": "right-net" }
+    ]'
+spec:
+  nodeSelector:
+    "kubernetes.io/hostname": "l2-srv1"
+  containers:
+    - name: ubuntuapp
+      image: virtualhops/ato-ubuntu:latest
+      securityContext:
+          privileged: true
