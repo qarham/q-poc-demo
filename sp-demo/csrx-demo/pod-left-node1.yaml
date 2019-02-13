@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-left 
+  labels:
+    app: ubuntuapp
+  annotations:
+    k8s.v1.cni.cncf.io/networks: '[
+      { "name": "left-net" }
+    ]'
+spec:
+  nodeSelector:
+    "kubernetes.io/hostname": "contrail-node1"
+  containers:
+    - name: ubuntuapp
+      image: virtualhops/ato-ubuntu:latest
+      securityContext:
+          privileged: true

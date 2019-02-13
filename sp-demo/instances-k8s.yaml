@@ -5,8 +5,8 @@ global_configuration:
   CONTAINER_REGISTRY_PASSWORD: <password>
 provider_config:
   bms:
-    ssh_pwd:  u\_6KTqbPS+SW&KV
-    ssh_user: qarham
+    ssh_pwd:  contrail123
+    ssh_user: root
     ntpserver: time.google.com
     domainsuffix: local
 instances:
